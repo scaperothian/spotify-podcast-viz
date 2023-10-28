@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Publisher Visualization</h2>
+<div id="publisher-chart"></div>
+
+<!-- <script>
+        var chart = altair.Chart(JSON.parse('{{ chart | tojson | safe }}')).embed('#publisher-chart');
+    </script> -->
+
+<script type="text/javascript">
+
+    var debug = {{ chart | tojson | safe}};
+    var spec = "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
+    // var spec = {{ chart | tojson | safe}};
+
+    vegaEmbed('#publisher-chart', debug).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+</script>
+
+{% endblock %}

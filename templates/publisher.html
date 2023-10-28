@@ -1,12 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Publisher Visualization</h2>
-<div id="publisher-chart"></div>
+<h2 style="text-align: center;">Publisher Visualization</h2>
+<!-- <div id="publisher-chart"></div> -->
 
-<!-- <script>
-        var chart = altair.Chart(JSON.parse('{{ chart | tojson | safe }}')).embed('#publisher-chart');
-    </script> -->
+<p style="text-align: center;">Description about publisher dashboard...</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="row">
+                 Description about publisher-chart1
+            </div>
+            <div class="row">
+                <div id="publisher-chart1"></div>
+           </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                 Description about publisher-chart2
+            </div>
+            <div class="row">
+                <div id="publisher-chart2"></div>
+           </div>
+        </div>
+    </div>
+
+</div>
 
 <script type="text/javascript">
 
@@ -14,7 +34,11 @@
     var spec = "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
     // var spec = {{ chart | tojson | safe}};
 
-    vegaEmbed('#publisher-chart', debug).then(function (result) {
+    vegaEmbed('#publisher-chart1', debug).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#publisher-chart2', debug).then(function (result) {
         // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 

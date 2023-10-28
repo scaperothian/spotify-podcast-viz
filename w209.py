@@ -11,11 +11,12 @@
 
 
 from flask import Flask, render_template
+# from flask_bootstrap import Bootstrap
 import altair as alt
 import pandas as pd
 
 app = Flask(__name__)
-
+# Bootstrap(app)
 # @app.route('/')
 # def index():
 #     # Sample data
@@ -84,4 +85,6 @@ def episodes():
     return render_template('episodes.html', chart={})
 
 if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)

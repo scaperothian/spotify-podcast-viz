@@ -1,8 +1,15 @@
 # spotify-podcast-viz
 
 
+## Local Setup
+1. Clone repo
+2. create virtual-env `python3 -m venv .venv`
+3. activate virtual-env `source .venv/bin/activate`
+4. install packages from requirements.txt `pip3 install -r requirements.txt`
+5. run flask app `flask --app w209.py run`
 
-# Setup
+
+## Setup Project On Berkeley Server
 1. Get access to your personal server: https://docs.google.com/document/d/1WhGPj32ukYWc-v9qEs1WmMqofmXIKm0bniJs7tG19dI/edit
 2. Go into your w209 folder and clone this repo. The directory should look something like this
 

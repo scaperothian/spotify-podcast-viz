@@ -53,7 +53,7 @@ def publisher():
 
     # if metadata.tsv is not there, then run
     try:
-        df = pd.read_csv('data/metadata_with_episode_dates.csv')
+        df = pd.read_csv('w209/spotify-podcast-viz/data/metadata_with_episode_dates.csv')
 
         # Create data frame with publishers mapped to episodes and shows....
         # TODO: create this offline and load as a json
@@ -103,15 +103,16 @@ def publisher():
         print(chart)
 
     except Exception as e:
+
         data = pd.DataFrame({
             'a': list('CCCDDDEEE'),
-            'b': [2, 7, 4, 5, 3, 2, 7, 2, 4]
+            'c': [2, 7, 4, 5, 3, 2, 7, 2, 4]
         })
 
         # Altair chart
         chart = alt.Chart(data).mark_bar().encode(
             x='a',
-            y='b'
+            y='c'
         )
         print(chart)
         # Convert chart to JSON

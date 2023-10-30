@@ -1,10 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Shows Visualization</h2>
-    <div id="shows-chart"></div>
-    
-    <!-- <script>
-        var chart = altair.Chart(JSON.parse('{{ chart | tojson | safe }}')).embed('#publisher-chart');
-    </script> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <input type="text" class="form-control" id="typeahead" autocomplete="on" placeholder="Enter show name">
+        </div>
+        <div class="col-2">
+            <button id="searchShows" class="btn btn-success btn-block">Search</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div id="show-chart1"></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div id="show-chart2"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+   $(document).ready(function () {
+    var shows_list = {{shows | tojson | safe}};
+
+    $('#typeahead').typeahead({
+        source: shows_list
+    });
+
+    $("#searchShows").click(function () {
+        var searchInput = $("#typeahead").val();
+        console.log("request")
+        $.ajax({
+            url: "{{ url_for('get_show_visualization') }}",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ show_name: searchInput }),
+            success: function (data) {
+                console.log(data)
+                console.log('shows')
+                updateChart('#show-chart1', data.chart1);
+                updateChart('#show-chart2', data.chart2);
+            },
+            error: function (error) {
+                console.error("Error fetching data: ", error);
+            }
+        });
+    });
+
+    function updateChart(chartDiv, chartData) {
+        vegaEmbed(chartDiv, chartData).then(function (result) {
+        }).catch(console.error);
+    }
+});
+
+</script>
 {% endblock %}

@@ -129,6 +129,28 @@
             "mark": {
                 "type": "bar"
             }
+        },
+        "chart3": {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
+            "data": {
+              "url": "data/penguins.json"
+            },
+            "mark": "point",
+            "encoding": {
+              "x": {
+                "field": "Flipper Length (mm)",
+                "type": "quantitative",
+                "scale": {"zero": false}
+              },
+              "y": {
+                "field": "Body Mass (g)",
+                "type": "quantitative",
+                "scale": {"zero": false}
+              },
+              "color": {"field": "Species", "type": "nominal"},
+              "shape": {"field": "Species", "type": "nominal"}
+            }
         }
     },
     "Spotify Studio 2": {
@@ -201,6 +223,38 @@
             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
             "description": "A scatterplot showing body mass and flipper lengths of penguins.",
             "data": {
+                "url": "data/penguins.json"
+            },
+            "mark": "point",
+            "encoding": {
+                "x": {
+                    "field": "Flipper Length (mm)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "y": {
+                    "field": "Body Mass (g)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "color": {
+                    "field": "Species",
+                    "type": "nominal"
+                },
+                "shape": {
+                    "field": "Species",
+                    "type": "nominal"
+                }
+            }
+        },
+        "chart3": {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
+            "data": {
               "url": "data/penguins.json"
             },
             "mark": "point",
@@ -218,6 +272,137 @@
               "color": {"field": "Species", "type": "nominal"},
               "shape": {"field": "Species", "type": "nominal"}
             }
-          }
+        }
+    },
+    "Spotify Studio 3": {
+        "chart1": {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
+            "config": {
+                "view": {
+                    "continuousHeight": 300,
+                    "continuousWidth": 300
+                }
+            },
+            "data": {
+                "name": "data-299e62c48fce5c7604121c0d3d1661fb"
+            },
+            "datasets": {
+                "data-299e62c48fce5c7604121c0d3d1661fb": [
+                    {
+                        "a": "C",
+                        "b": 22
+                    },
+                    {
+                        "a": "C",
+                        "b": 10
+                    },
+                    {
+                        "a": "C",
+                        "b": 12
+                    },
+                    {
+                        "a": "D",
+                        "b": 24
+                    },
+                    {
+                        "a": "D",
+                        "b": 62
+                    },
+                    {
+                        "a": "D",
+                        "b": 61
+                    },
+                    {
+                        "a": "E",
+                        "b": 11
+                    },
+                    {
+                        "a": "E",
+                        "b": 96
+                    },
+                    {
+                        "a": "E",
+                        "b": 75
+                    }
+                ]
+            },
+            "encoding": {
+                "x": {
+                    "field": "a",
+                    "type": "nominal"
+                },
+                "y": {
+                    "field": "b",
+                    "type": "quantitative"
+                }
+            },
+            "mark": {
+                "type": "bar"
+            }
+        },
+        "chart2": {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
+            "data": {
+                "url": "data/penguins.json"
+            },
+            "mark": "point",
+            "encoding": {
+                "x": {
+                    "field": "Flipper Length (mm)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "y": {
+                    "field": "Body Mass (g)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "color": {
+                    "field": "Species",
+                    "type": "nominal"
+                },
+                "shape": {
+                    "field": "Species",
+                    "type": "nominal"
+                }
+            }
+        },
+        "chart3": {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
+            "data": {
+                "url": "data/penguins.json"
+            },
+            "mark": "point",
+            "encoding": {
+                "x": {
+                    "field": "Flipper Length (mm)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "y": {
+                    "field": "Body Mass (g)",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    }
+                },
+                "color": {
+                    "field": "Species",
+                    "type": "nominal"
+                },
+                "shape": {
+                    "field": "Species",
+                    "type": "nominal"
+                }
+            }
+        }
     }
 }

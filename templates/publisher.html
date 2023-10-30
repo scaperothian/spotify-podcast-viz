@@ -13,14 +13,15 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="row">
-                <div id="publisher-chart1"></div>
-            </div>
+            <div id="publisher-chart1"></div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="row">
-                <div id="publisher-chart2"></div>
-            </div>
+            <div id="publisher-chart2"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div id="publisher-chart3"></div>
         </div>
     </div>
 
@@ -28,7 +29,6 @@
 
 <script>
    $(document).ready(function () {
-    // var fruits = ['Apple', 'Orange', 'Banana', 'Cherry', 'Date', 'Fruit Salad'];
     var publishers_list = {{publishers | tojson | safe}};
 
     $('#typeahead').typeahead({
@@ -37,7 +37,6 @@
 
     $("#searchPublisher").click(function () {
         var searchInput = $("#typeahead").val();
-        console.log("request")
         $.ajax({
             url: "{{ url_for('get_publisher_visualization') }}",
             method: "POST",
@@ -47,6 +46,8 @@
                 console.log(data)
                 updateChart('#publisher-chart1', data.chart1);
                 updateChart('#publisher-chart2', data.chart2);
+                updateChart('#publisher-chart3', data.chart3);
+
             },
             error: function (error) {
                 console.error("Error fetching data: ", error);

@@ -1,47 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 style="text-align: center;">Publisher Visualization</h2>
-<!-- <div id="publisher-chart"></div> -->
-
-<p style="text-align: center;">Description about publisher dashboard...</p>
 
 <div class="container">
     <div class="row">
+        <div class="col-10">
+            <input type="text" class="form-control" id="typeahead" autocomplete="on" placeholder="Enter publisher name">
+        </div>
+        <div class="col-2">
+            <button id="searchPublisher" class="btn btn-success btn-block">Search</button>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12 col-md-6">
             <div class="row">
-                 Description about publisher-chart1
-            </div>
-            <div class="row">
                 <div id="publisher-chart1"></div>
-           </div>
+            </div>
         </div>
         <div class="col-12 col-md-6">
             <div class="row">
-                 Description about publisher-chart2
-            </div>
-            <div class="row">
                 <div id="publisher-chart2"></div>
-           </div>
+            </div>
         </div>
     </div>
 
 </div>
 
-<script type="text/javascript">
+<script>
+   $(document).ready(function () {
+    // var fruits = ['Apple', 'Orange', 'Banana', 'Cherry', 'Date', 'Fruit Salad'];
+    var publishers_list = {{publishers | tojson | safe}};
 
-    var debug = {{ chart | tojson | safe}};
-    var spec = "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
-    // var spec = {{ chart | tojson | safe}};
+    $('#typeahead').typeahead({
+        source: publishers_list
+    });
 
-    vegaEmbed('#publisher-chart1', debug).then(function (result) {
-        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-    }).catch(console.error);
+    $("#searchPublisher").click(function () {
+        var searchInput = $("#typeahead").val();
+        console.log("request")
+        $.ajax({
+            url: "{{ url_for('get_publisher_visualization') }}",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ publisher_name: searchInput }),
+            success: function (data) {
+                console.log(data)
+                updateChart('#publisher-chart1', data.chart1);
+                updateChart('#publisher-chart2', data.chart2);
+            },
+            error: function (error) {
+                console.error("Error fetching data: ", error);
+            }
+        });
+    });
 
-    vegaEmbed('#publisher-chart2', debug).then(function (result) {
-        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-    }).catch(console.error);
+    function updateChart(chartDiv, chartData) {
+        vegaEmbed(chartDiv, chartData).then(function (result) {
+        }).catch(console.error);
+    }
+});
 
 </script>
-
 {% endblock %}

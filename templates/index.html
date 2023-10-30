@@ -1,29 +1,86 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
-    <!-- Import vega-embed -->
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-</head>
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Our Spotify Podcast Exploration Site</h1>
+        <p class="lead">Dive deep into the world of podcasts on Spotify through our interactive visualizations and
+            insights.</p>
+        <hr class="my-4">
+        <p>Our curated dataset offers a detailed look at over 100,000 episodes spanning diverse shows and emanating from
+            an array of publishers. This provides a holistic perspective on Spotify's podcast domain.</p>
+        <p>For a clearer understanding, let's elucidate some key terminologies:</p>
 
-<body>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <strong>Publisher:</strong> These are the studios pivotal to the podcast world. They operate multiple
+                podcast shows, akin to production houses in cinema, creating and broadcasting a range of podcast
+                content.
+            </li>
+            <li class="list-group-item">
+                <strong>Show:</strong> This refers to a podcast series. Akin to a TV series, a podcast show is a
+                collection of episodes centered around a main theme or topic.
+            </li>
+            <li class="list-group-item">
+                <strong>Episodes:</strong> These are individual segments of long-form audio that form part of a show.
+                Think of them as chapters in a book, each adding to the overarching story.
+            </li>
+        </ul>
 
-    <div id="vis"></div>
-    <!-- {{chart}} -->
-    <script type="text/javascript">
+        <p class="mt-4">Join us in this exploration and uncover the multifaceted realm of Spotify's podcasts. Whether
+            you're a podcast aficionado, data enthusiast, or simply curious, there's a wealth of knowledge awaiting you!
+        </p>
+    </div>
 
-        var debug = {{chart | tojson | safe}};
-        var spec = "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
-        // var spec = {{ chart | tojson | safe}};
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Navigating the Exploration Site</h2>
+            <p>Our platform is designed with user-friendliness at its core. The navigation bar is tailored to direct you to various depths of insights about Spotify's podcasts. Here's a brief overview of what each button offers:</p>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><button class="btn btn-info btn-block">General Insights</button></h5>
+                    <p class="card-text">Discover overarching insights synthesized from a multitude of dimensions. This section provides a macroscopic view of the dataset.</p>
+                </div>
+            </div>
+        </div>
 
-        vegaEmbed('#vis', debug).then(function (result) {
-            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-        }).catch(console.error);
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><button class="btn btn-primary btn-block">Publisher</button></h5>
+                    <p class="card-text">Delve into individual publisher-level insights. Get a comprehensive view of various publishers' reach, popularity, and their most successful shows.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><button class="btn btn-secondary btn-block">Shows</button></h5>
+                    <p class="card-text">Navigate to a world of show-level insights. Explore the intricacies of different podcast series, their audience engagement, and overall performance metrics.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><button class="btn btn-success btn-block">Episodes</button></h5>
+                    <p class="card-text">Step into the granular realm of episode-level insights. Unearth detailed metrics on individual podcast episodes, listener demographics, and more.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </script>
-</body>
-
-</html>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <p>We encourage you to click around, dive deep, and explore the vast wealth of information available at your fingertips. Happy exploring!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -231,24 +231,154 @@
         },
         "chart3": {
             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
-            "data": {
-              "url": "data/penguins.json"
+            "config": {
+                "view": {
+                    "continuousWidth": 300,
+                    "continuousHeight": 300
+                },
+                "axisY": {
+                    "labelAlign": "right"
+                },
+                "scale": {
+                    "bandPaddingInner": 0.2
+                }
             },
-            "mark": "point",
+            "data": {
+                "name": "data-f19cc73400ae17f8614792cafd1d686d"
+            },
+            "mark": {
+                "type": "bar"
+            },
             "encoding": {
-              "x": {
-                "field": "Flipper Length (mm)",
-                "type": "quantitative",
-                "scale": {"zero": false}
-              },
-              "y": {
-                "field": "Body Mass (g)",
-                "type": "quantitative",
-                "scale": {"zero": false}
-              },
-              "color": {"field": "Species", "type": "nominal"},
-              "shape": {"field": "Species", "type": "nominal"}
+                "x": {
+                    "field": "Frequency",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "Categories",
+                    "sort": "-x",
+                    "type": "nominal"
+                }
+            },
+            "height": 600,
+            "title": "Podcast Publishers Show Categories",
+            "width": 1000,
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
+            "datasets": {
+                "data-f19cc73400ae17f8614792cafd1d686d": [
+                    {
+                        "Categories": "Comedy",
+                        "Frequency": "572"
+                    },
+                    {
+                        "Categories": "Music",
+                        "Frequency": "479"
+                    },
+                    {
+                        "Categories": "Society & Culture",
+                        "Frequency": "405"
+                    },
+                    {
+                        "Categories": "Sports",
+                        "Frequency": "254"
+                    },
+                    {
+                        "Categories": "Arts",
+                        "Frequency": "184"
+                    },
+                    {
+                        "Categories": "Education",
+                        "Frequency": "141"
+                    },
+                    {
+                        "Categories": "News",
+                        "Frequency": "114"
+                    },
+                    {
+                        "Categories": "TV & Film",
+                        "Frequency": "90"
+                    },
+                    {
+                        "Categories": "Science",
+                        "Frequency": "27"
+                    },
+                    {
+                        "Categories": "Music Interviews",
+                        "Frequency": "22"
+                    },
+                    {
+                        "Categories": "Music Commentary",
+                        "Frequency": "22"
+                    },
+                    {
+                        "Categories": "Fiction",
+                        "Frequency": "20"
+                    },
+                    {
+                        "Categories": "Drama",
+                        "Frequency": "16"
+                    },
+                    {
+                        "Categories": "Entertainment News",
+                        "Frequency": "15"
+                    },
+                    {
+                        "Categories": "Personal Journals",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Sports News",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Cricket",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Documentary",
+                        "Frequency": "11"
+                    },
+                    {
+                        "Categories": "Music History",
+                        "Frequency": "11"
+                    },
+                    {
+                        "Categories": "True Crime",
+                        "Frequency": "9"
+                    },
+                    {
+                        "Categories": "Relationships",
+                        "Frequency": "5"
+                    },
+                    {
+                        "Categories": "Health & Fitness",
+                        "Frequency": "5"
+                    },
+                    {
+                        "Categories": "Kids & Family",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "Pets & Animals",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "Comedy Fiction",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "News Commentary",
+                        "Frequency": "3"
+                    },
+                    {
+                        "Categories": "History",
+                        "Frequency": "2"
+                    },
+                    {
+                        "Categories": "Self-Improvement",
+                        "Frequency": "1"
+                    }
+                ]
             }
         }
     },

@@ -23,7 +23,18 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div id="show-chart3"></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div id="show-chart4"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -47,6 +58,8 @@
                 console.log('shows')
                 updateChart('#show-chart1', data.chart1);
                 updateChart('#show-chart2', data.chart2);
+                updateChart('#show-chart3', data.chart3);
+                updateChart('#show-chart4', data.chart4);
             },
             error: function (error) {
                 console.error("Error fetching data: ", error);

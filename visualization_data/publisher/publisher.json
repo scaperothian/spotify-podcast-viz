@@ -4,152 +4,381 @@
             "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
             "config": {
                 "view": {
-                    "continuousHeight": 300,
-                    "continuousWidth": 300
+                    "continuousWidth": 300,
+                    "continuousHeight": 300
+                },
+                "scale": {
+                    "bandPaddingInner": 0.2
                 }
             },
             "data": {
-                "name": "data-299e62c48fce5c7604121c0d3d1661fb"
-            },
-            "datasets": {
-                "data-299e62c48fce5c7604121c0d3d1661fb": [
-                    {
-                        "a": "C",
-                        "b": 22
-                    },
-                    {
-                        "a": "C",
-                        "b": 10
-                    },
-                    {
-                        "a": "C",
-                        "b": 12
-                    },
-                    {
-                        "a": "D",
-                        "b": 24
-                    },
-                    {
-                        "a": "D",
-                        "b": 62
-                    },
-                    {
-                        "a": "D",
-                        "b": 61
-                    },
-                    {
-                        "a": "E",
-                        "b": 11
-                    },
-                    {
-                        "a": "E",
-                        "b": 96
-                    },
-                    {
-                        "a": "E",
-                        "b": 75
-                    }
-                ]
-            },
-            "encoding": {
-                "x": {
-                    "field": "a",
-                    "type": "nominal"
-                },
-                "y": {
-                    "field": "b",
-                    "type": "quantitative"
-                }
+                "name": "data-7b9338d8b6ad5f48ca0266fb11a33496"
             },
             "mark": {
                 "type": "bar"
+            },
+            "encoding": {
+                "tooltip": [
+                    {
+                        "field": "Values",
+                        "type": "nominal"
+                    }
+                ],
+                "x": {
+                    "field": "Values",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "Category",
+                    "type": "nominal"
+                }
+            },
+            "height": 200,
+            "width": 300,
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
+            "datasets": {
+                "data-7b9338d8b6ad5f48ca0266fb11a33496": [
+                    {
+                        "Category": "number_of_shows",
+                        "Values": "47"
+                    },
+                    {
+                        "Category": "number_of_episodes",
+                        "Values": "1252"
+                    },
+                    {
+                        "Category": "mean_number_of_episodes_per_show",
+                        "Values": "26.638297872340427"
+                    }
+                ]
             }
         },
         "chart2": {
             "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
             "config": {
                 "view": {
-                    "continuousHeight": 300,
-                    "continuousWidth": 300
+                    "continuousWidth": 300,
+                    "continuousHeight": 300
+                },
+                "scale": {
+                    "bandPaddingInner": 0.2
                 }
             },
             "data": {
-                "name": "data-299e62c48fce5c7604121c0d3d1661fb"
-            },
-            "datasets": {
-                "data-299e62c48fce5c7604121c0d3d1661fb": [
-                    {
-                        "a": "C",
-                        "b": 22
-                    },
-                    {
-                        "a": "C",
-                        "b": 10
-                    },
-                    {
-                        "a": "C",
-                        "b": 12
-                    },
-                    {
-                        "a": "D",
-                        "b": 24
-                    },
-                    {
-                        "a": "D",
-                        "b": 62
-                    },
-                    {
-                        "a": "D",
-                        "b": 61
-                    },
-                    {
-                        "a": "E",
-                        "b": 11
-                    },
-                    {
-                        "a": "E",
-                        "b": 96
-                    },
-                    {
-                        "a": "E",
-                        "b": 75
-                    }
-                ]
-            },
-            "encoding": {
-                "x": {
-                    "field": "a",
-                    "type": "nominal"
-                },
-                "y": {
-                    "field": "b",
-                    "type": "quantitative"
-                }
+                "name": "data-c1fba7542e6151d23d0fd79291be6157"
             },
             "mark": {
                 "type": "bar"
+            },
+            "encoding": {
+                "x": {
+                    "field": "episodes_per_month",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "show_name",
+                    "sort": "-x",
+                    "type": "nominal"
+                }
+            },
+            "height": 500,
+            "width": 300,
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
+            "datasets": {
+                "data-c1fba7542e6151d23d0fd79291be6157": [
+                    {
+                        "show_name": "The Hottest Take",
+                        "episodes_per_month": 15.0
+                    },
+                    {
+                        "show_name": "Spotify x IPG Mediabrands",
+                        "episodes_per_month": 12.0
+                    },
+                    {
+                        "show_name": "21 Days with mxmtoon",
+                        "episodes_per_month": 8.0
+                    },
+                    {
+                        "show_name": "Jemele Hill is Unbothered",
+                        "episodes_per_month": 7.545454545454546
+                    },
+                    {
+                        "show_name": "Football Legends ",
+                        "episodes_per_month": 6.2
+                    },
+                    {
+                        "show_name": "Fitness Mantra",
+                        "episodes_per_month": 5.0
+                    },
+                    {
+                        "show_name": "Bhaskar Bose",
+                        "episodes_per_month": 5.0
+                    },
+                    {
+                        "show_name": "Dissect",
+                        "episodes_per_month": 5.0
+                    },
+                    {
+                        "show_name": "22 Yarns with Gaurav Kapur",
+                        "episodes_per_month": 4.333333333333333
+                    },
+                    {
+                        "show_name": "London, Actually",
+                        "episodes_per_month": 4.333333333333333
+                    },
+                    {
+                        "show_name": "The Receipts Podcast",
+                        "episodes_per_month": 4.285714285714286
+                    },
+                    {
+                        "show_name": "The 500 with Josh Adam Meyers",
+                        "episodes_per_month": 4.166666666666667
+                    },
+                    {
+                        "show_name": "Riggle's Picks with Rob Riggle & Sarah Tiana",
+                        "episodes_per_month": 4.071428571428571
+                    },
+                    {
+                        "show_name": "Who We Be TALKS_",
+                        "episodes_per_month": 4.0
+                    },
+                    {
+                        "show_name": "The Last Degree of Kevin Bacon",
+                        "episodes_per_month": 4.0
+                    },
+                    {
+                        "show_name": "My Dog's Favourite Podcast",
+                        "episodes_per_month": 4.0
+                    },
+                    {
+                        "show_name": "Gynning & Berg - Hittar sig sj\u00e4lva",
+                        "episodes_per_month": 4.0
+                    },
+                    {
+                        "show_name": "Under Cover",
+                        "episodes_per_month": 3.75
+                    },
+                    {
+                        "show_name": "Set It Straight with Midland",
+                        "episodes_per_month": 3.6666666666666665
+                    },
+                    {
+                        "show_name": "GIANT",
+                        "episodes_per_month": 3.5
+                    },
+                    {
+                        "show_name": "David's Out For a Good Time",
+                        "episodes_per_month": 3.4
+                    },
+                    {
+                        "show_name": "Lenny Says",
+                        "episodes_per_month": 3.0
+                    },
+                    {
+                        "show_name": "Med p\u00e5 noterna",
+                        "episodes_per_month": 3.0
+                    },
+                    {
+                        "show_name": "Infamous: The Tekashi 6ix9ine Story ",
+                        "episodes_per_month": 3.0
+                    },
+                    {
+                        "show_name": "Bollywood Gupshup",
+                        "episodes_per_month": 2.5
+                    },
+                    {
+                        "show_name": "The Totally Nations League Show",
+                        "episodes_per_month": 2.5
+                    },
+                    {
+                        "show_name": "Zindagi Ki Guftagu",
+                        "episodes_per_month": 2.5
+                    },
+                    {
+                        "show_name": "Noisemakers",
+                        "episodes_per_month": 2.3333333333333335
+                    },
+                    {
+                        "show_name": "The Rewind with Guy Raz",
+                        "episodes_per_month": 2.0
+                    },
+                    {
+                        "show_name": "Extremes Season 2",
+                        "episodes_per_month": 2.0
+                    },
+                    {
+                        "show_name": "Aliens Like Us with Rhys Darby",
+                        "episodes_per_month": 2.0
+                    },
+                    {
+                        "show_name": "The Big Fat Indian Ghotala",
+                        "episodes_per_month": 2.0
+                    },
+                    {
+                        "show_name": "Generation Betoota",
+                        "episodes_per_month": 2.0
+                    },
+                    {
+                        "show_name": "Dope Labs",
+                        "episodes_per_month": 1.9230769230769231
+                    },
+                    {
+                        "show_name": "Zindagi Unplugged",
+                        "episodes_per_month": 1.0
+                    }
+                ]
             }
         },
         "chart3": {
             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "description": "A scatterplot showing body mass and flipper lengths of penguins.",
-            "data": {
-              "url": "data/penguins.json"
+            "config": {
+                "view": {
+                    "continuousWidth": 300,
+                    "continuousHeight": 300
+                },
+                "axisY": {
+                    "labelAlign": "right"
+                },
+                "scale": {
+                    "bandPaddingInner": 0.2
+                }
             },
-            "mark": "point",
+            "data": {
+                "name": "data-f19cc73400ae17f8614792cafd1d686d"
+            },
+            "mark": {
+                "type": "bar"
+            },
             "encoding": {
-              "x": {
-                "field": "Flipper Length (mm)",
-                "type": "quantitative",
-                "scale": {"zero": false}
-              },
-              "y": {
-                "field": "Body Mass (g)",
-                "type": "quantitative",
-                "scale": {"zero": false}
-              },
-              "color": {"field": "Species", "type": "nominal"},
-              "shape": {"field": "Species", "type": "nominal"}
+                "x": {
+                    "field": "Frequency",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "Categories",
+                    "sort": "-x",
+                    "type": "nominal"
+                }
+            },
+            "height": 600,
+            "title": "Podcast Publishers Show Categories",
+            "width": 1000,
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.15.1.json",
+            "datasets": {
+                "data-f19cc73400ae17f8614792cafd1d686d": [
+                    {
+                        "Categories": "Comedy",
+                        "Frequency": "572"
+                    },
+                    {
+                        "Categories": "Music",
+                        "Frequency": "479"
+                    },
+                    {
+                        "Categories": "Society & Culture",
+                        "Frequency": "405"
+                    },
+                    {
+                        "Categories": "Sports",
+                        "Frequency": "254"
+                    },
+                    {
+                        "Categories": "Arts",
+                        "Frequency": "184"
+                    },
+                    {
+                        "Categories": "Education",
+                        "Frequency": "141"
+                    },
+                    {
+                        "Categories": "News",
+                        "Frequency": "114"
+                    },
+                    {
+                        "Categories": "TV & Film",
+                        "Frequency": "90"
+                    },
+                    {
+                        "Categories": "Science",
+                        "Frequency": "27"
+                    },
+                    {
+                        "Categories": "Music Interviews",
+                        "Frequency": "22"
+                    },
+                    {
+                        "Categories": "Music Commentary",
+                        "Frequency": "22"
+                    },
+                    {
+                        "Categories": "Fiction",
+                        "Frequency": "20"
+                    },
+                    {
+                        "Categories": "Drama",
+                        "Frequency": "16"
+                    },
+                    {
+                        "Categories": "Entertainment News",
+                        "Frequency": "15"
+                    },
+                    {
+                        "Categories": "Personal Journals",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Sports News",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Cricket",
+                        "Frequency": "13"
+                    },
+                    {
+                        "Categories": "Documentary",
+                        "Frequency": "11"
+                    },
+                    {
+                        "Categories": "Music History",
+                        "Frequency": "11"
+                    },
+                    {
+                        "Categories": "True Crime",
+                        "Frequency": "9"
+                    },
+                    {
+                        "Categories": "Relationships",
+                        "Frequency": "5"
+                    },
+                    {
+                        "Categories": "Health & Fitness",
+                        "Frequency": "5"
+                    },
+                    {
+                        "Categories": "Kids & Family",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "Pets & Animals",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "Comedy Fiction",
+                        "Frequency": "4"
+                    },
+                    {
+                        "Categories": "News Commentary",
+                        "Frequency": "3"
+                    },
+                    {
+                        "Categories": "History",
+                        "Frequency": "2"
+                    },
+                    {
+                        "Categories": "Self-Improvement",
+                        "Frequency": "1"
+                    }
+                ]
             }
         }
     },

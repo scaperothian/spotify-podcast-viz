@@ -3,16 +3,18 @@ import altair as alt
 import pandas as pd
 import random
 import json
-
+from os import path
 app = Flask(__name__)
 
-with open("visualization_data/publisher/publisher.json") as fp:
+
+root_path = path.dirname(__file__)
+with open(root_path + "/visualization_data/publisher/publisher.json") as fp:
     publisher_data = json.load(fp)
 
-with open("visualization_data/show/show.json") as fp:
+with open(root_path + "/visualization_data/show/show.json") as fp:
     show_data = json.load(fp)
 
-with open("visualization_data/episode/episode.json") as fp:
+with open(root_path + "/visualization_data/episode/episode.json") as fp:
     episode_data = json.load(fp)
 
 def get_chart():

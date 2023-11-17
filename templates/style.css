@@ -1,0 +1,57 @@
+/* Reset some default styles to ensure consistency */
+body, h1, h2, p, table {
+    margin: 0;
+    padding: 0;
+}
+
+/* Overall styling for the page */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #1DB954;
+    color: #ffffff;
+    padding: 20px;
+}
+
+/* Styling for page titles */
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Styling for section titles */
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Styling for tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ffffff;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #1DB954;
+    color: #ffffff;
+}
+
+/* Styling for embedded images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}

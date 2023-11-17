@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="container">
+    <h1>Episode Insights</h1>
     <div class="row">
         <div class="col-10">
             <input type="text" class="form-control" id="typeahead" autocomplete="on" placeholder="Enter episode name">
@@ -11,16 +12,29 @@
             <button id="searchEpisode" class="btn btn-success btn-block">Search</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="row">
-                <div id="episode-chart1"></div>
-            </div>
+    <div class="col-12 col-md-12 mt-4 mb-4">
+        <div class="row">
+            <div id="episode-stat1"></div>
         </div>
-        <div class="col-12 col-md-6">
-            <div class="row">
-                <div id="episode-chart2"></div>
-            </div>
+    </div>
+    <div class="col-12 col-md-12 mt-4 mb-4">
+        <div class="row">
+            <div id="episode-stat2"></div>
+        </div>
+    </div>
+    <div class="col-12 col-md-12 mt-4 mb-4">
+        <div class="row">
+            <div id="episode-stat3"></div>
+        </div>
+    </div>
+    <div class="col-12 col-md-12 mt-4 mb-4">
+        <div class="row">
+            <div id="episode-stat4"></div>
+        </div>
+    </div>
+    <div class="col-12 col-md-12 mt-4 mb-4">
+        <div class="row">
+            <div id="episode-stat5"></div>
         </div>
     </div>
 
@@ -45,8 +59,13 @@
             success: function (data) {
                 console.log(data)
                 console.log('episode')
-                updateChart('#episode-chart1', data.chart1);
-                updateChart('#episode-chart2', data.chart2);
+                updateChart('#episode-stat1', data.stat1);
+                updateChart('#episode-stat2', data.stat2);
+                updateChart('#episode-stat3', data.stat3);
+                updateChart('#episode-stat4', data.stat4);
+                updateChart('#episode-stat5', data.stat5);
+
+
             },
             error: function (error) {
                 console.error("Error fetching data: ", error);

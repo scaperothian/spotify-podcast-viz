@@ -1,28 +1,155 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 style="text-align: center;">General Insights</h2>
+<body>
+<h1 style="text-align: center;">General Insights</h1>
 
-<h2>Top Ten Publishers and Shows</h1>
+<table border="1">
+    <h2> General Information</h2>
+    <tr>
+        <td>Total Number of Podcasts</td>
+        <td>18,290</td>
+    </tr>
+    <tr>
+        <td>Total Number of Episodes</td>
+        <td>105,360</td>
+    </tr>
+    <tr>
+        <td>Average Length Of An Episode</td>
+        <td>33.85 Minutes</td>
+    </tr>
+    <tr>
+        <td>Average Number Of Episodes Per Show</td>
+        <td>5</td>
+    </tr>
+</table>
+
+
+<table border="1" title="Top Ten Shows">
+    <h2>Top 10 shows</h2>
+
+    <thead>
+        <tr>
+            <th>Show Name</th>
+            <th>Number of Episodes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Chompers</td>
+            <td>1072</td>
+        </tr>
+        <tr>
+            <td>Coach Corey Wayne</td>
+            <td>615</td>
+        </tr>
+        <tr>
+            <td>Daily Fortnite</td>
+            <td>417</td>
+        </tr>
+        <tr>
+            <td>Dr Berg’s Healthy Keto and Intermittent Fasting Podcast</td>
+            <td>746</td>
+        </tr>
+        <tr>
+            <td>Everyday Positivity</td>
+            <td>396</td>
+        </tr>
+        <tr>
+            <td>Optimal Finance Daily</td>
+            <td>336</td>
+        </tr>
+        <tr>
+            <td>Optimal Living Daily: Personal Development & Minimalism</td>
+            <td>424</td>
+        </tr>
+        <tr>
+            <td>Pack-A-Day: Your Daily Packers Podcast</td>
+            <td>394</td>
+        </tr>
+        <tr>
+            <td>Self Improvement Daily</td>
+            <td>376</td>
+        </tr>
+        <tr>
+            <td>The GaryVee Audio Experience</td>
+            <td>413</td>
+        </tr>
+        <tr>
+            <td>The Orthobullets Podcast</td>
+            <td>362</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1">
+    <h2>Top Ten Publishers </h2>
+    <thead>
+        <tr>
+            <th>Publisher</th>
+            <th>Number of Episodes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AfterBuzz TV</td>
+            <td>2650</td>
+        </tr>
+        <tr>
+            <td>Parcast Network</td>
+            <td>2558</td>
+        </tr>
+        <tr>
+            <td>Gimlet</td>
+            <td>2450</td>
+        </tr>
+        <tr>
+            <td>Spotify Studios</td>
+            <td>1252</td>
+        </tr>
+        <tr>
+            <td>Seneca Learning Revision</td>
+            <td>807</td>
+        </tr>
+        <tr>
+            <td>Dr. Eric Berg</td>
+            <td>746</td>
+        </tr>
+        <tr>
+            <td>Gary Vaynerchuk</td>
+            <td>697</td>
+        </tr>
+        <tr>
+            <td>Justin Malik</td>
+            <td>636</td>
+        </tr>
+        <tr>
+            <td>Coach Corey Wayne</td>
+            <td>615</td>
+        </tr>
+        <tr>
+            <td>Campfire Media</td>
+            <td>509</td>
+        </tr>
+    </tbody>
+</table>
 
 <div>
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
+    Below is more information about the top performing Podcasts and Producers.
+</div>
+
+
+<div>
+    <img src="/static/visualization-2.png" alt="Top 10 Pie Chart" width="40%" height="auto">
+    <img src="/static/visualization-3.png" alt="Podcast Duration pie chart" width="40%" height="auto">
+    <img src="/static/visualization-5.png" alt="Episodes by Top Publishers bar chart" width="40%" height="auto">
+    <img src="/static/visualization-6.png" alt="Average Number of show produced by publisher pie chart" width="40%" height="auto">
 </div>
 
 <h2>Languages</h1>
 
 <div>
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
+    <img src="/static/visualization.png" alt="Langages represented in pie chart" width="40%" height="auto">
 </div>
-
+</body>
 {% endblock %}

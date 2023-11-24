@@ -229,7 +229,7 @@ class TextEmbeddings:
         self.embedding_labels = list_of_labels
 
 
-def example_main():
+def example_main(example_query):
     filename = '../../metadata_with_episode_dates_and_category.tsv'
     CROP_SHOWS = 100 # for testing
     block_size = 30  # see benchmarking
@@ -291,9 +291,8 @@ def example_main():
                         filename=file)
     end = time.time()
     print(f"{end-start} to Generate Embeddings.")
-    query = 'This episode is about mothers.  Make your life perfect by listening to my guests.'
-    emb.compare(query)
-    print(f"Query: {query}")
+    emb.compare(example_query)
+    print(f"Query: {example_query}")
     print(f"Top Five Results:")
     pprint.pprint(emb.get_top_n_scores(n=5))
     
@@ -305,18 +304,27 @@ def example_main():
     print("**************************************")
     emb2 = TextEmbeddings()
     emb2.load(file,df_example)
-    emb2.compare(query)
-    print(f"Query: {query}")
+    emb2.compare(example_query)
+    print(f"Query: {example_query}")
     print(f"Top Five Results:")
     pprint.pprint(emb2.get_top_n_scores(n=5))
 
 if __name__ == "__main__":
     # TODO: add the following arguments to a parseargs: 
-    #       1. embedding location
-    #       2. data set location
+    #       1. embedding location (if loading)
+    #       2. data set location (if generating)
     #       3. flag to load data
     #       4. flag to generate embeddings 
-    example_main()
+    #
+    #  Create Embeddings
+    #  python embeddings.py --generate --dataset <filename> --datakey <key> --labelkey <key>
+    #  
+    #  Load embeddings from file and include dataset information
+    #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key>
+    #  
+    #  Load embeddings from file and query 
+    #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key> --query <some_string>
+    example_main("We are all in the matrix, so just swallow the pill will you?")
     
     
     

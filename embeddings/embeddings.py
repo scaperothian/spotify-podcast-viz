@@ -80,7 +80,7 @@ class TextEmbeddings:
     def add_data_frame(self, df):
         self.data_frame = df
     
-    def load(self,file):
+    def load(self,file,data_frame=None):
         """
         Loading embeddings from file.
         """
@@ -90,7 +90,9 @@ class TextEmbeddings:
         self.data_key = loaded_data['data_key']
         self.embedding_matrix = loaded_data['embeddings']
         self.embedding_labels = loaded_data['embedding_labels']
-        
+
+        if data_frame is not None:
+            self.data_frame = data_frame
     
     def compare(self,query,n=5,verbose=False):
         queryemb = self.encoder(query)
@@ -100,6 +102,9 @@ class TextEmbeddings:
         self.scores = (queryemb @ tf.transpose(dataemb))[0].numpy().tolist()
     
     def get_top_n_scores(self,n=5,verbose=False):
+
+        df = self.data_frame
+            
         sorted_indices = np.argsort(self.scores)[::-1]
         lst = []
         
@@ -223,11 +228,15 @@ class TextEmbeddings:
         self.embedding_matrix = np.vstack(list_of_embeddings)
         self.embedding_labels = list_of_labels
 
-if __name__ == "__main__":
 
-    
-    
+def example_main():
     filename = '../../metadata_with_episode_dates_and_category.tsv'
+    CROP_SHOWS = 100 # for testing
+    block_size = 30  # see benchmarking
+    file = 'example_embeddings.pkl'
+    data_key='show_description'
+    label_key='show_name'
+    
     try: 
         df = pd.read_csv(filename,sep='\t')
     except Exception as e1:
@@ -251,9 +260,9 @@ if __name__ == "__main__":
     df = df[~df['episode_description'].isna()]
     df = df[~df['episode_name'].isna()]
 
-    CROP_SHOWS = 100 # for testing
-    block_size = 30  # see benchmarking
-    file = 'example_embeddings.pkl'
+    df_shows = df.drop_duplicates(['show_name','show_description'])[['show_name','show_description']].reset_index(drop=True)
+    df_example = df_shows.sample(CROP_SHOWS)
+
 
     # delete file before generating things to make the example valid (i.e. no stale data somewhere)
     try:
@@ -275,9 +284,9 @@ if __name__ == "__main__":
     print("**************************************")
     start = time.time()
     emb = TextEmbeddings()
-    emb.create_embeddings( df.sample(CROP_SHOWS),
-                        data_key='show_description', 
-                        label_key='show_name', 
+    emb.create_embeddings( df_example,
+                        data_key=data_key, 
+                        label_key=label_key, 
                         block_size=block_size, 
                         filename=file)
     end = time.time()
@@ -295,8 +304,19 @@ if __name__ == "__main__":
     print("  saved file, instead in memory data. ")
     print("**************************************")
     emb2 = TextEmbeddings()
-    emb2.load(file)
+    emb2.load(file,df_example)
     emb2.compare(query)
     print(f"Query: {query}")
     print(f"Top Five Results:")
     pprint.pprint(emb2.get_top_n_scores(n=5))
+
+if __name__ == "__main__":
+    # TODO: add the following arguments to a parseargs: 
+    #       1. embedding location
+    #       2. data set location
+    #       3. flag to load data
+    #       4. flag to generate embeddings 
+    example_main()
+    
+    
+    

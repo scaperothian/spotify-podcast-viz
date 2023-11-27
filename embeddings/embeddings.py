@@ -333,8 +333,13 @@ def generate():
             exit()
 
     # clean the data
+    df['release_date'] = pd.to_datetime(df['release_date'], format='%Y-%m-%d').reset_index(drop=True)
+    df = df[~df['release_date'].isna()]
+    df = df[~df['category'].isna()]
     df = df[~df['show_description'].isna()]
     df = df[~df['show_name'].isna()]
+    df = df[~df['episode_description'].isna()]
+    df = df[~df['episode_name'].isna()]
 
     df_shows = df.drop_duplicates(['show_name','show_description'])[['show_name','show_description']].reset_index(drop=True)
 

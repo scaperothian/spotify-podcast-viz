@@ -6,6 +6,7 @@ import pprint
 import subprocess
 import requests
 import sys
+import argparse
 
 import tensorflow as tf
 import pandas as pd
@@ -309,7 +310,7 @@ def demo(example_query):
     print(f"Top Five Results:")
     pprint.pprint(emb2.get_top_n_scores(n=5))
 
-def generate(filename,data_key, label_key):
+def generate():
     
     filename = '../../metadata_with_episode_dates_and_category.tsv'
     block_size = 30  # see benchmarking
@@ -366,37 +367,20 @@ def generate(filename,data_key, label_key):
 
 
 if __name__ == "__main__":
-    # TODO: add the following arguments to a parseargs: 
-    #       1. embedding location (if loading)
-    #       2. data set location (if generating)
-    #       3. flag to load data
-    #       4. flag to generate embeddings 
-    #
-    #  Create Embeddings
-    #  python embeddings.py --generate --dataset <filename> --datakey <key> --labelkey <key>
-    #  
-    #  Create Embeddings Demo
-    #  python embeddings.py --demo
-    #  
-    #  Load embeddings from file and include dataset information
-    #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key>
-    #  
-    #  Load embeddings from file and query 
-    #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key> --query <some_string>
-    parser = argparse.ArgumentParser(description="Create embeddings for a dataset or run a demo.")
+    parser = argparse.ArgumentParser(description="Create embeddings")
 
     # Subparsers for different actions
     subparsers = parser.add_subparsers(title="Actions", dest="action", required=True)
 
     # Subparser for --generate
-    generate_parser = subparsers.add_parser("generate-show-embeddings", help="Create embeddings for a dataset")
+    generate_parser = subparsers.add_parser("generate-shows", help="Create embeddings for all shows in dataset")
 
     # Subparser for --demo
-    demo_parser = subparsers.add_parser("demo", help="Run the embeddings demo")
+    demo_parser = subparsers.add_parser("demo", help="Run demo generating embeddings and loading them from a file.")
 
     args = parser.parse_args()
 
-    if args.action == "generate-show-embeddings":
+    if args.action == "generate-shows":
         generate()
     elif args.action == "demo":
         demo("We are all in the matrix, so just swallow the pill will you?")

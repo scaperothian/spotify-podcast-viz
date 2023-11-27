@@ -229,7 +229,7 @@ class TextEmbeddings:
         self.embedding_labels = list_of_labels
 
 
-def example_main(example_query):
+def demo(example_query):
     filename = '../../metadata_with_episode_dates_and_category.tsv'
     CROP_SHOWS = 100 # for testing
     block_size = 30  # see benchmarking
@@ -309,6 +309,62 @@ def example_main(example_query):
     print(f"Top Five Results:")
     pprint.pprint(emb2.get_top_n_scores(n=5))
 
+def generate(filename,data_key, label_key):
+    
+    filename = '../../metadata_with_episode_dates_and_category.tsv'
+    block_size = 30  # see benchmarking
+    file = 'show_embeddings.pkl'
+    data_key='show_description'
+    label_key='show_name'
+    
+    try: 
+        df = pd.read_csv(filename,sep='\t')
+    except Exception as e1:
+        #print(e)
+        try: 
+            print("Attempt to pull from Google Drive")
+            id = "1guz7ILFUGLN2aYoXUez-K5ZCw0Xjo6m4"
+            download(id,filename)
+            df = pd.read_csv(filename,sep='\t')
+        except Exception as e2:
+            print("Fetch to Google Drive failed to download file.")
+            print(e1, e2)
+            exit()
+
+    # clean the data
+    df = df[~df['show_description'].isna()]
+    df = df[~df['show_name'].isna()]
+
+    df_shows = df.drop_duplicates(['show_name','show_description'])[['show_name','show_description']].reset_index(drop=True)
+
+    # delete file before generating things to make the example valid (i.e. no stale data somewhere)
+    try:
+        # Check if the file exists
+        if os.path.exists(file):
+            # Remove the file
+            os.remove(file)
+            print(f"File {file} deleted successfully.")
+        else:
+            print(f"File {file} does not exist. Continuing on my merry way.")
+    except Exception as e:
+        print(f"Error deleting file {file}: {e}")
+
+    
+    print("**************************************")
+    print("  Generate embeddings                 ")
+    print("**************************************")
+
+    start = time.time()
+    emb = TextEmbeddings()
+    emb.create_embeddings( df_shows,
+                        data_key=data_key, 
+                        label_key=label_key, 
+                        block_size=block_size, 
+                        filename=file)
+    end = time.time()
+    print(f"{end-start} to Generate Embeddings.")
+
+
 if __name__ == "__main__":
     # TODO: add the following arguments to a parseargs: 
     #       1. embedding location (if loading)
@@ -319,12 +375,34 @@ if __name__ == "__main__":
     #  Create Embeddings
     #  python embeddings.py --generate --dataset <filename> --datakey <key> --labelkey <key>
     #  
+    #  Create Embeddings Demo
+    #  python embeddings.py --demo
+    #  
     #  Load embeddings from file and include dataset information
     #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key>
     #  
     #  Load embeddings from file and query 
     #  python embeddings.py --load <filename> --dataset <filename> --datakey <key> --labelkey <key> --query <some_string>
-    example_main("We are all in the matrix, so just swallow the pill will you?")
+    parser = argparse.ArgumentParser(description="Create embeddings for a dataset or run a demo.")
+
+    # Subparsers for different actions
+    subparsers = parser.add_subparsers(title="Actions", dest="action", required=True)
+
+    # Subparser for --generate
+    generate_parser = subparsers.add_parser("generate-show-embeddings", help="Create embeddings for a dataset")
+
+    # Subparser for --demo
+    demo_parser = subparsers.add_parser("demo", help="Run the embeddings demo")
+
+    args = parser.parse_args()
+
+    if args.action == "generate-show-embeddings":
+        generate()
+    elif args.action == "demo":
+        demo("We are all in the matrix, so just swallow the pill will you?")
+
+
+
     
     
     

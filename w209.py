@@ -4,6 +4,12 @@ import pandas as pd
 import random
 import json
 from os import path
+from elasticsearch import Elasticsearch
+
+client = Elasticsearch(
+  "https://527db13b131f4f1b90590b6f6c0039f6.us-central1.gcp.cloud.es.io:443",
+  api_key=""
+)
 app = Flask(__name__)
 
 
@@ -52,6 +58,10 @@ def episodes():
 def general():
     return render_template('general_insights.html')
 
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
 @app.route('/get-publisher-visualization', methods=['POST'])
 def get_publisher_visualization():
     publisher_name = request.json.get('publisher_name')
@@ -73,6 +83,21 @@ def get_episode_visualization():
     selected_episode_data = episode_data[episode_name]
 
     return jsonify(selected_episode_data)
+
+@app.route('/spotify-elasticsearch', methods=['POST'])
+def get_spotify_data_from_elasticsearch():
+
+    query_phrase = request.json.get("query_phrase")
+    res = client.search(index="search-spotidy-dataset", q=query_phrase)
+    print(res)
+
+    results = [hit['_source']['doc'] for hit in res['hits']['hits']]
+
+    ## build filters and types
+
+    
+
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True

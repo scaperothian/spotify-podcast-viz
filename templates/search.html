@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h5>Filters</h5>
+            <!-- Publisher Filter -->
+            <div id="publisher-filter">
+                <p>Publisher</p>
+                <!-- Checkboxes for publishers will be populated dynamically -->
+            </div>
+            <!-- Show Filter -->
+            <div id="show-filter">
+                <p>Show</p>
+                <!-- Checkboxes for shows will be populated dynamically -->
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <!-- Search Bar Row -->
+            <div class="row mb-3">
+                <div class="col">
+                    <form class="form-inline" onsubmit="performSearch(); return false;">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Row -->
+            <div class="row">
+                <div class="col">
+                    <table class="table" id="results-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Episode Name</th>
+                                <th scope="col">Show Name</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Episode Insights</th>
+                                <th scope="col">Show Insights</th>
+                                <th scope="col">Publisher Insights</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals for Insights -->
+<div class="modal fade" id="episodeInsightsModal" tabindex="-1" role="dialog" aria-labelledby="episodeInsightsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="episodeInsightsModalLabel">Episode Insights</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="episodeInsightsContent">
+                <!-- Episode insights content will be set here -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Repeat modal structure for Show Insights and Publisher Insights -->
+<div class="modal fade" id="showInsightsModal" tabindex="-1" role="dialog" aria-labelledby="showInsightsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showInsightsModalLabel">Show Insights</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="showInsightsContent">
+                <!-- Episode insights content will be set here -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="publisherInsightsModal" tabindex="-1" role="dialog" aria-labelledby="publisherInsightsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="publisherInsightsModalLabel">Publisher Insights</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="publisherInsightsContent">
+                <!-- Episode insights content will be set here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function performSearch() {
+        // Simulate an API request
+        // ...
+        var searchText = document.getElementById('search-input').value;
+        var url = "{{ url_for('get_spotify_data_from_elasticsearch') }}"; // Flask URL
+
+        let response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ query_phrase: searchText })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        let data = await response.json();
+
+        console.log(data)
+
+        // Dummy response data
+        var dummyData = [
+            {
+                "episode name": "...",
+                "show name": "...",
+                "show description": "...",
+                "episode description": "...",
+                "publisher": "...",
+                "episode topics": ["..."],
+                "show genre": "...",
+                "duration": 0,
+                "episode_insights": "episode insights",
+                "show_insights": "show insights",
+                "publisher_insights": "publisher insights"
+            },
+            // Add more dummy data as needed
+        ];
+
+        // Update the table with dummy data
+        var tableBody = document.getElementById('results-table').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = ''; // Clear existing data
+
+        data.forEach(function(item) {
+            console.log(item)
+            var row = tableBody.insertRow();
+            row.insertCell(0).innerHTML = item["episode_name"];
+            row.insertCell(1).innerHTML = item["show_name"];
+            row.insertCell(2).innerHTML = item["publisher"];
+
+            // Adding buttons for insights
+            var episodeInsightCell = row.insertCell(3);
+            var showInsightCell = row.insertCell(4);
+            var publisherInsightCell = row.insertCell(5);
+
+            episodeInsightCell.innerHTML = '<button type="button" class="btn btn-primary" onclick="showInsights(\'episode\', \'' + "episode insights" + '\')">View</button>';
+            showInsightCell.innerHTML = '<button type="button" class="btn btn-primary" onclick="showInsights(\'show\', \'' + "show insights" + '\')">View</button>';
+            publisherInsightCell.innerHTML = '<button type="button" class="btn btn-primary" onclick="showInsights(\'publisher\', \'' + "publisher insights"+ '\')">View</button>';
+        });
+
+        updateFilters(data)
+    }
+
+    function showInsights(type, content) {
+        var modalId, modalContentId;
+
+        if (type === 'episode') {
+            modalId = '#episodeInsightsModal';
+            modalContentId = 'episodeInsightsContent';
+        } else if (type === 'show') {
+            modalId = '#showInsightsModal';
+            modalContentId = 'showInsightsContent';
+        } else if (type === 'publisher') {
+            modalId = '#publisherInsightsModal';
+            modalContentId = 'publisherInsightsContent';
+        }
+
+        document.getElementById(modalContentId).innerText = content;
+        $(modalId).modal('show');
+    }
+
+    function getSelectedCheckboxes(className) {
+        var checkboxes = document.getElementsByClassName(className);
+        var selected = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selected.push(checkboxes[i].value);
+            }
+        }
+        return selected;
+    }
+
+    function updateFilters(data) {
+        // Populate checkboxes for publishers and shows based on data
+        // Example: addCheckbox('publisher-filter', 'Publisher Name', 'publisher-checkbox');
+        // ...
+        document.getElementById('publisher-filter').innerHTML = '<p> Publisher </p>';
+        document.getElementById('show-filter').innerHTML = '<p> Shows </p>';
+        // get unique publishers
+        var uniquePublishers = [... new Set(data.map(item => item.publisher))].sort()
+        // get unique shows
+        var uniqueShows = [... new Set(data.map(item => item.show_name))].sort()
+
+        // uniquePublishers.forEach(function(item){
+        //     addCheckbox('publisher-filter', item, 'publisher-checkbox', item)
+        // });
+        
+        uniqueShows.forEach(function(item){
+            addCheckbox('show-filter', item, 'show-checkbox', item)
+        });
+
+        // addCheckbox('show-filter', 'Publisher Name', 'publisher-checkbox')
+
+    }
+
+    function addCheckbox(containerId, label, className, value) {
+        var container = document.getElementById(containerId);
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = label;
+        checkbox.value = value;
+        checkbox.id = label;
+        checkbox.className = className;
+
+        var labelElement = document.createElement('label');
+        labelElement.htmlFor = label;
+        labelElement.appendChild(document.createTextNode(label));
+
+        container.appendChild(checkbox);
+        container.appendChild(labelElement);
+        container.appendChild(document.createElement('br'));
+    }
+</script>
+
+{% endblock %}

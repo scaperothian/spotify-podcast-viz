@@ -5,11 +5,15 @@ import random
 import json
 from os import path
 from elasticsearch import Elasticsearch
-
+from altair import Chart, X, Y, Data
 client = Elasticsearch(
   "https://527db13b131f4f1b90590b6f6c0039f6.us-central1.gcp.cloud.es.io:443",
   api_key=""
 )
+
+docs = client.search(index='search-spotidy-dataset', body={"query": {"match_all": {}}})
+spotify_df = pd.json_normalize(docs)
+
 app = Flask(__name__)
 
 
@@ -98,6 +102,16 @@ def get_spotify_data_from_elasticsearch():
     
 
     return jsonify(results)
+
+@app.route("/gen")
+def gen():
+    chart = Chart(spotify_df).mark_bar(color='gray').encode(
+            x = "Show Name:N",
+            y = "sum(Show Name):Q"
+    )
+    return chart.to_json()
+
+head = spotify_df.head().to_html()
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True

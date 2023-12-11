@@ -3,39 +3,13 @@
 {% block content %}
 <h2 style="text-align: center;">General Insights</h2>
 
-<h2>Top Ten Publishers and Shows</h1>
-
-<div>
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-</div>
-
-<h2>Languages</h1>
-
-<div>
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-    <!-- Add the image with the <img> element -->
-    <img src="/static/test.jpeg" alt="Related Book 1" width="40%" height="auto">
-    <!-- Add more content or elements as needed -->
-</div>
-
-
 <div>
     <div class="charts text-center">
         <div class="row"><div id="gen"></div></div><hr>
-       
         <!-- Placeholder for the tooltip -->
         <div id="vis-tooltip" class="vg-tooltip"></div>
       </div>
 </div>
-
-<h1> TEST SECTION   </h1>
 
 <!-- Render Charts -->
 <script type="text/javascript">
@@ -53,6 +27,7 @@ function parse(url, div) {
 }
 
 parse("/gen", "gen")
+
 </script>
 
 {% endblock %}

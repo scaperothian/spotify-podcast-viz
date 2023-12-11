@@ -11,8 +11,10 @@ client = Elasticsearch(
   api_key=""
 )
 
+#convert elsatic search to dataframe
 docs = client.search(index='search-spotidy-dataset', body={"query": {"match_all": {}}})
-spotify_df = pd.json_normalize(docs)
+spotifyresults = [hit['_source']['doc'] for hit in docs['hits']['hits']]
+spotify_df = pd.json_normalize(spotifyresults)
 
 app = Flask(__name__)
 
@@ -66,6 +68,7 @@ def general():
 def search():
     return render_template('search.html')
 
+
 @app.route('/get-publisher-visualization', methods=['POST'])
 def get_publisher_visualization():
     publisher_name = request.json.get('publisher_name')
@@ -94,24 +97,20 @@ def get_spotify_data_from_elasticsearch():
     query_phrase = request.json.get("query_phrase")
     res = client.search(index="search-spotidy-dataset", q=query_phrase)
     print(res)
-
     results = [hit['_source']['doc'] for hit in res['hits']['hits']]
-
+    # at some point we need to turn these results into a dataframe to make the visualizations
     ## build filters and types
-
-    
-
     return jsonify(results)
 
+#put altair code to generate charts here
 @app.route("/gen")
 def gen():
-    chart = Chart(spotify_df).mark_bar(color='gray').encode(
-            x = "Show Name:N",
-            y = "sum(Show Name):Q"
+    chart = Chart(spotify_df, title = 'Average duration by publisher').mark_bar(color='red').encode(
+            X(f'publisher').title("Publisher Name"),
+            Y('mean(duration)').title("Average Duration"),
+            tooltip=['mean(duration)']
     )
     return chart.to_json()
-
-head = spotify_df.head().to_html()
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True

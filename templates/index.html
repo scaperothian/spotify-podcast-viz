@@ -32,55 +32,64 @@
         </p>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Navigating the Exploration Site</h2>
-            <p>Our platform is designed with user-friendliness at its core. The navigation bar is tailored to direct you to various depths of insights about Spotify's podcasts. Here's a brief overview of what each button offers:</p>
-        </div>
-    </div>
-    
-    <div class="row mt-4">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><button class="btn btn-info btn-block">General Insights</button></h5>
-                    <p class="card-text">Discover overarching insights synthesized from a multitude of dimensions. This section provides a macroscopic view of the dataset.</p>
-                </div>
+    <!-- Footer -->
+    <footer class="container-fluid text-center footer">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-9 school-logo">
+                <img src="{{url_for('static', filename='berkeleyischool-logo-alternate-white-lg.png')}}" alt="Spotify"
+                    width="25%" height="auto">
             </div>
+            <div class="col-sm-1"></div>
         </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-9 text-center">
+                <h3>Contributors:</h3>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3 text-center">
+                <img class="personal-image" src="{{url_for('static', filename='publisher_word_cloud.png')}}" alt="almicia">
+            </div>
+            <div class="col-sm-3 text-center">
+                <img class="personal-image" src="{{url_for('static', filename='publisher_word_cloud.png')}}" alt="tijayant">
+            </div>
+            <div class="col-sm-3 text-center personal-image">
+                <img class="personal-image" src="{{url_for('static', filename='scaperoth.jpeg')}}" alt="scaperoth">
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <p>Almicia Dunson</p>
+            </div>
+            <div class="col-sm-3">
+                <p>Jayant Twari</p>
+            </div>
+            <div class="col-sm-3">
+                <p>David Scaperoth</p>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <p><small>almicia [at] ischool.berkeley.edu</small></p>
+            </div>
+            <div class="col-sm-3">
+                <p><small>tijayant [at] ischool.berkeley.edu</small></p>
+            </div>
+            <div class="col-sm-3">
+                <p><small>scaperoth [at] ischool.berkeley.edu</small></p>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row"></div>
+    </footer>
 
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><button class="btn btn-primary btn-block">Publisher</button></h5>
-                    <p class="card-text">Delve into individual publisher-level insights. Get a comprehensive view of various publishers' reach, popularity, and their most successful shows.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><button class="btn btn-secondary btn-block">Shows</button></h5>
-                    <p class="card-text">Navigate to a world of show-level insights. Explore the intricacies of different podcast series, their audience engagement, and overall performance metrics.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><button class="btn btn-success btn-block">Episodes</button></h5>
-                    <p class="card-text">Step into the granular realm of episode-level insights. Unearth detailed metrics on individual podcast episodes, listener demographics, and more.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <p>We encourage you to click around, dive deep, and explore the vast wealth of information available at your fingertips. Happy exploring!</p>
-        </div>
-    </div>
 </div>
 {% endblock %}

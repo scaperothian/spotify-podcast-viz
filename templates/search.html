@@ -63,15 +63,13 @@
             </div>
             <br>
             <!-- Top Show Level Categories -->
-            <!-- <div>
-                <h6>Top Show Level Categories</h6>
-                <ul id="top-show-categories" class="list-unstyled">
-                    <li class="text-primary">Loading...</li>
-                    <li class="text-primary">Loading...</li>
+            <div>
+                <h6>Top topics</h6>
+                <ul id="top-topics" class="list-unstyled">
                     <li class="text-primary">Loading...</li>
                 </ul>
             </div>
-            <br> -->
+            <br>
             <!-- Top Episode Level Categories -->
             <!-- <div>
                 <h6>Top Episode Level Categories</h6>
@@ -172,8 +170,17 @@
         var average_duration = document.getElementById('average-duration')
         average_duration.innerHTML = data['average_duration'] + ' minutes'
         
-        // clear Search Metrics
+        var top_topics = document.getElementById('top-topics')
 
+        // Initialize the newHTMLContent
+        let newHTMLContent = "";
+
+        // Use a for loop to generate the new HTML content
+        for (let i = 1; i <= data['top_topics'].length; i++) {
+            newHTMLContent += `<li>${data['top_topics'][i]}</li>`;
+        }
+
+        top_topics.innerHTML = newHTMLContent
 
         data['rows'].forEach(function(item) {
             // add html code here for episode

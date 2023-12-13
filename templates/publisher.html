@@ -82,7 +82,7 @@
 
     function updateChart(chartDiv, chartData) {
         vegaEmbed(chartDiv, chartData).then(function (result) {
-        }).catch(console.error);
+        }).catch(console.error(result));
     }
 });
 

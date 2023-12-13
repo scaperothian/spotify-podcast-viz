@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Filters</h5>
+            <!-- Publisher Filter -->
+            <div id="publisher-filter">
+                <h5>Publisher</h5>
+                <!-- Checkboxes for publishers will be populated dynamically -->
+            </div>
+            <br>
+            <br>
+            <!-- Show Filter -->
+            <div id="show-filter">
+                <h5>Show</h5>
+                <!-- Checkboxes for shows will be populated dynamically -->
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Search Bar Row -->
+            <div class="row">
+                <div class="col">
+                    <form class="form-inline" onsubmit="performSearch(true); return false;">
+                        <div class="input-group w-100">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-input">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Row -->
+            <div class="row">
+                <div class="col">
+                    <table class="table" id="results-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Episode Name</th>
+                                <th scope="col">Show Name</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Insights</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5>Search Metrics</h5>
+            <!-- Average Duration -->
+            <div>
+                <h6>Average Duration</h6>
+                <p id="average-duration" class="font-weight-bold"></p>
+            </div>
+            <br>
+            <!-- Top Show Level Categories -->
+            <!-- <div>
+                <h6>Top Show Level Categories</h6>
+                <ul id="top-show-categories" class="list-unstyled">
+                    <li class="text-primary">Loading...</li>
+                    <li class="text-primary">Loading...</li>
+                    <li class="text-primary">Loading...</li>
+                </ul>
+            </div>
+            <br> -->
+            <!-- Top Episode Level Categories -->
+            <!-- <div>
+                <h6>Top Episode Level Categories</h6>
+                <ul id="top-episode-categories" class="list-unstyled">
+                    <li class="text-success">Loading...</li>
+                    <li class="text-success">Loading...</li>
+                    <li class="text-success">Loading...</li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Modals for Insights -->
+<div class="modal fade" id="insightsModal" tabindex="-1" role="dialog" aria-labelledby="insightsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document"> <!-- Added 'modal-lg' class for larger width -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="insightsModalLabel">Insights</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="insightsContent">
+                <!-- insights content will be set here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    async function performSearch(forceUpdateFilter) {
+        // Simulate an API request
+        // ...
+
+        $('#loadingModal').modal('show');
+        let showFilters = {}
+        let publisherFilters = {}
+        if(forceUpdateFilter !== true){
+            showFilters = getSelectedFilters('show-filter')
+            publisherFilters = getSelectedFilters('publisher-filter')
+        }
+
+        var updateFilter = false
+
+        if (Object.keys(showFilters).length == 0 && Object.keys(publisherFilters).length == 0){
+            // there are no values to filter from, need to update filters from the results
+            var updateFilter = true
+        }
+
+        if (forceUpdateFilter === true){
+            updateFilter = true
+        }
+
+        var searchText = document.getElementById('search-input').value;
+        var url = "{{ url_for('get_spotify_data_from_elasticsearch') }}"; // Flask URL
+
+        let response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                query_phrase: searchText,
+                filters:{
+                    show_filters: showFilters,
+                    publisher_filters: publisherFilters
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        let data = await response.json();
+
+
+        // Update the table with dummy data
+        var tableBody = document.getElementById('results-table').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = ''; // Clear existing data
+
+        var average_duration = document.getElementById('average-duration')
+        average_duration.innerHTML = data['average_duration'] + ' minutes'
+        
+        // clear Search Metrics
+
+
+        data['rows'].forEach(function(item) {
+            // add html code here for episode
+            var episodeData = {"episode_description": "test description"}
+
+
+            // add html code here for show
+            var showCharts = '\'<div> <b>show data </b></div>\''
+
+            // add html code here for publisher
+            var publisherCharts = `\' <div> <b>publisher data </b></div> \'`
+            var row = tableBody.insertRow();
+            row.insertCell(0).innerHTML = item["episode_name"];
+            row.insertCell(1).innerHTML = item["show_name"];
+            row.insertCell(2).innerHTML = item["publisher"];
+
+            // Adding buttons for insights
+            var insights = row.insertCell(3)
+            var insightsButton = document.createElement('button');
+            insightsButton.type = "button";
+            insightsButton.className = "btn btn-primary"
+            insightsButton.textContent = "view"
+            insightsButton.onclick = function() {
+                showInsights({
+                    "episode_description": item["episode_description"],
+                    "duration": item["duration"],
+                    "show_description": item["show_description"],
+                    "topics": item["topics"],
+                    "topics_count_show_chart": item["topics_count_show_chart"]
+                })
+            }
+
+            insights.appendChild(insightsButton)
+        });
+        // if there are no filters, then create filters
+
+        if(updateFilter){
+            updateFilters(data['rows'])
+        }
+
+        $('#loadingModal').modal('hide');
+
+    }
+
+    function showInsights(content) {
+        var modalId, modalContentId, displayContent;
+
+
+        modalId = '#insightsModal';
+        modalContentId = 'insightsContent';
+        displayContent = `
+        <div class="modal-body">
+            <!-- Episode Description -->
+            <h6>Episode Description:</h6>
+            <p>${content['episode_description']}</p>
+
+            <!-- Episode Duration -->
+            <h6>Duration:</h6>
+            <p>${content['duration']}</p>
+
+            <h6>Show Description</h6>
+            <p>${content['show_description']}
+
+            <h6>Episode topics</h6>
+            <p>${content['topics']}</p>
+
+            <h6>show topics</h6>
+            <div id=${content['episode_filename_prefix']}></div>
+
+        </div>
+    `;
+        
+
+
+        document.getElementById(modalContentId).innerHTML = displayContent;
+        var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
+        vegaEmbed("#" + content['episode_filename_prefix'], JSON.parse(content['topics_count_show_chart'])).then(function (result) {
+            console.log(result)
+        }).catch(console.error);
+
+
+        $(modalId).modal('show');
+    }
+
+    function getSelectedCheckboxes(className) {
+        var checkboxes = document.getElementsByClassName(className);
+        var selected = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selected.push(checkboxes[i].value);
+            }
+        }
+        return selected;
+    }
+
+    function updateFilters(data) {
+        // Populate checkboxes for publishers and shows based on data
+        // Example: addCheckbox('publisher-filter', 'Publisher Name', 'publisher-checkbox');
+        // ...
+        document.getElementById('publisher-filter').innerHTML = '<h5> Publisher </h5>';
+        document.getElementById('show-filter').innerHTML = '<br><br><h5> Shows </h5>';
+        // get unique publishers
+        var uniquePublishers = [... new Set(data.map(item => item.publisher))].sort()
+        // get unique shows
+        var uniqueShows = [... new Set(data.map(item => item.show_name))].sort()
+
+        uniquePublishers.forEach(function(item){
+            addCheckbox('publisher-filter', item, 'publisher-checkbox', item)
+        });
+        
+        uniqueShows.forEach(function(item){
+            addCheckbox('show-filter', item, 'show-checkbox', item)
+        });
+
+        // addCheckbox('show-filter', 'Publisher Name', 'publisher-checkbox')
+
+    }
+
+    function addCheckbox(containerId, label, className, value) {
+        var container = document.getElementById(containerId);
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = label;
+        checkbox.value = value;
+        checkbox.id = label;
+        checkbox.className = className;
+        checkbox.onclick = performSearch
+
+        var labelElement = document.createElement('label');
+        labelElement.htmlFor = label;
+        labelElement.appendChild(document.createTextNode(label));
+
+        container.appendChild(checkbox);
+        container.appendChild(labelElement);
+        container.appendChild(document.createElement('br'));
+    }
+
+    function getSelectedFilters(elementId){
+        // Get a reference to the div containing the checkboxes
+        var showFilterDiv = document.getElementById(elementId);
+        console.log(elementId)
+        console.log(showFilterDiv)
+
+        // Get all the checkboxes within the div
+        var checkboxes = showFilterDiv.querySelectorAll('input[type="checkbox"]');
+
+        // Create an object to store the checkbox status
+        var checkboxStatus = {};
+
+        // Loop through each checkbox and populate the object
+        checkboxes.forEach(function(checkbox) {
+            var checkboxLabel = checkbox.nextElementSibling.textContent.trim();
+            var isChecked = checkbox.checked;
+            checkboxStatus[checkboxLabel] = isChecked;
+        });
+
+        // Display the JSON object containing checkbox status
+        return checkboxStatus
+    }
+</script>
+{% endblock %}

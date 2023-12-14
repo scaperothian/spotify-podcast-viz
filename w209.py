@@ -72,6 +72,11 @@ def search():
     return render_template('search.html')
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @app.route('/get-publisher-visualization', methods=['POST'])
 def get_publisher_visualization():
     publisher_name = request.json.get('publisher_name')

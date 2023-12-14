@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">About</h1>
+        <p class="lead">The objective of this visualization is to offer podcast creators and data enthusiasts an in-depth exploration of the podcasting landscape on Spotify, facilitated by our comprehensive interactive visualizations and insights. Our aim is to simplify the complexity of data, making it more accessible and intuitive for users. We aspire that these visualizations will not only provide inspiration for potential podcast content creation but also aid in the discovery of new and previously unexplored podcasts. This initiative is a step towards enriching the podcasting community with valuable insights and fostering a culture of informed creativity and exploration. </p>
+        <hr class="my-4">
+        <p>Contributors</p>
+        <p>Almicia Dunson</p>
+        <p>Jayant Tiwari</p>
+        <p>David Scaperoth</p>      
+        <p class="mt-4"> Access the original dataset <a href="https://podcastsdataset.byspotify.com/">here</a>.
+        </p>
+    </div>
+
+    <div class="logo">
+        <!-- Add the image with the <img> element -->
+        <img src="{{url_for('static', filename='img.png')}}" alt="Spotify" width="25%" height="auto">
+    </div>
+    
+
+<!-- Footer -->
+<footer class="container-fluid text-center footer">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-9 school-logo">
+            <img src="{{url_for('static', filename='berkeleyischool-logo-alternate-white-lg.png')}}" alt="Spotify"
+                width="25%" height="auto">
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3 text-center">
+            <img class="personal-image" src="{{url_for('static', filename='publisher_word_cloud.png')}}" alt="almicia">
+        </div>
+        <div class="col-sm-3 text-center">
+            <img class="personal-image" src="{{url_for('static', filename='publisher_word_cloud.png')}}" alt="tijayant">
+        </div>
+        <div class="col-sm-3 text-center personal-image">
+            <img class="personal-image" src="{{url_for('static', filename='scaperoth.jpeg')}}" alt="scaperoth">
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <p>Almicia Dunson</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Jayant Twari</p>
+        </div>
+        <div class="col-sm-3">
+            <p>David Scaperoth</p>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <p><small>almicia [at] ischool.berkeley.edu</small></p>
+        </div>
+        <div class="col-sm-3">
+            <p><small>tijayant [at] ischool.berkeley.edu</small></p>
+        </div>
+        <div class="col-sm-3">
+            <p><small>scaperoth [at] ischool.berkeley.edu</small></p>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row"></div>
+</footer>
+
+{% endblock %}

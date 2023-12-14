@@ -177,10 +177,10 @@
 
         // Initialize the newHTMLContent
         let newHTMLContent = "";
-
+        console.log(data['top_topics'])
         // Use a for loop to generate the new HTML content
         for (let i = 1; i <= data['top_topics'].length; i++) {
-            newHTMLContent += `<li>${data['top_topics'][i]}</li>`;
+            newHTMLContent += `<li>${data['top_topics'][i-1].replace(/_/g, ' ')}</li>`;
         }
 
         top_topics.innerHTML = newHTMLContent

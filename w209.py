@@ -6,6 +6,7 @@ import json
 from os import path
 from elasticsearch import Elasticsearch
 from altair import Chart, X, Y, Data
+
 from collections import Counter
 client = Elasticsearch(
   "https://527db13b131f4f1b90590b6f6c0039f6.us-central1.gcp.cloud.es.io:443",
@@ -13,6 +14,7 @@ client = Elasticsearch(
 )
 
 #convert elsatic search to dataframe
+
 docs = client.search(index='search-spotify-dataset-visualizer', body={"query": {"match_all": {}}})
 spotifyresults = [hit['_source']['doc'] for hit in docs['hits']['hits']]
 spotify_df = pd.json_normalize(spotifyresults)
@@ -96,6 +98,7 @@ def get_episode_visualization():
 def get_spotify_data_from_elasticsearch():
 
     query_phrase = request.json.get("query_phrase")
+
     es_query = {
         "size": 200,
         "query": {
@@ -176,11 +179,6 @@ def get_spotify_data_from_elasticsearch():
             'top_topics': top_three_keys
         })
     
-
-
-    
-
-
 #put altair code to generate charts here
 @app.route("/gen")
 def gen():

@@ -32,6 +32,63 @@
         </p>
     </div>
 
+    <div class="logo">
+        <!-- Add the image with the <img> element -->
+        <img src="{{url_for('static', filename='img.png')}}" alt="Spotify" width="25%" height="auto">
+    </div>
+    <h2 class="page-title">Podcast Dataset at a Glance</h2>
+    <div class="row stats-totals">
+        <div class="col-md-12" id="FirstViz">
+            <p>Total Publishers: 17,490</p>
+            <p>Total Shows: 18,374</p>
+            <p>Total Episodes: 105,360</p>
+            <p>Total Show Categories: 122</p>
+        </div>
+    </div>
+
+    <div class="row stats-totals">
+
+        <div class="col-md-12 chart" id="ThirdViz">
+            <p class="chart-title">Top Show Categories</p>
+            <div id="bar-chart-2"></div>
+        </div>
+    </div>
+    <div class="row stats-totals">
+
+        <div class="col-md-12 chart" id="FourthViz">
+            <p class="chart-title">Shows Producing the Most Episodes Per Month</p>
+            <div id="bar-chart-3"></div>
+
+
+        </div>
+    </div>
+    <div class="row stats-totals">
+        <div class="col-md-12 chart" id="SecondViz">
+            <p class="chart-title">Most Episodes in a Single Show</p>
+            <div id="bar-chart-1"></div>
+            <!-- <img src="tmp.jpeg" alt="Bar Chart 1" width="85%" height="auto"> -->
+        </div>
+    </div>
+    </div>
+
+    <p class="table-title">Search Podcast Shows</p>
+    <div class="row">
+        <div class="col-md-12">
+            <iframe width="100%" height="393" frameborder="0"
+                src="https://observablehq.com/embed/6eb70a116161a3f4@123?cells=viewof+search%2Cmoredata&banner=false"></iframe>
+        </div>
+
+    </div>
+
+    <p class="table-title">Search Podcast Episodes</p>
+    <div class="row">
+        <div class="col-md-12">
+            <iframe width="100%" height="393" frameborder="0"
+                src="https://observablehq.com/embed/f904862f2b89cc04@140?cells=viewof+search%2Cmoredata&banner=false"></iframe>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-md-12">
             <h2>Navigating the Exploration Site</h2>
@@ -83,4 +140,9 @@
         </div>
     </div>
 </div>
+
+<script src="{{url_for('static', filename='01_bar_chart_total_shows.js')}}" ></script>
+<script src="{{url_for('static', filename='02_bar_chart_top_categories.js')}}"type="text/javascript" src=></script>
+<script src="{{url_for('static', filename='03_bar_chart_most_episodes_per_month.js')}}"></script>
+
 {% endblock %}

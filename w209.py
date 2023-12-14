@@ -9,7 +9,7 @@ from altair import Chart, X, Y, Data
 from collections import Counter
 client = Elasticsearch(
   "https://527db13b131f4f1b90590b6f6c0039f6.us-central1.gcp.cloud.es.io:443",
-  api_key="STFJVlc0d0JRcERJVVMzblRzTG86OHBDcEUzLTNUeHVENUdISmxmRlZ2dw=="
+  api_key=""
 )
 
 #convert elsatic search to dataframe
@@ -166,7 +166,7 @@ def get_spotify_data_from_elasticsearch():
         new_result = results1 + results2
         avg_duration = sum([x['duration'] for x in new_result]) / len(new_result)
 
-        list_of_counters = [Counter(x['topics'] for x in new_result)]
+        list_of_counters = [Counter(x['topics']) for x in new_result]
         summed_counter = sum(list_of_counters, Counter())
 
         top_three_keys = [key for key, _ in summed_counter.most_common(3)]

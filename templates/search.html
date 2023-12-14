@@ -214,6 +214,7 @@
                     "duration": item["duration"],
                     "show_name": item["show_name"],
                     "show_description": item["show_description"],
+                    "show_category": item["category"],
                     "total_show_episodes": item["total_show_episodes"],
                     "topics": item["topics"],
                     "topics_count_show_chart": item["topics_count_show_chart"]
@@ -240,11 +241,14 @@
         modalContentId = 'insightsContent';
         displayContent = `
         <div class="modal-body">
-            <h6>Show Name (Total Episodes: ${typeof(content['total_show_episodes'])})</h6>
+            <h6>Show Name (Total Episodes: ${content['total_show_episodes']})</h6>
             <p>${content['show_name']}
             
             <h6>Show Description </h6>
             <p>${content['show_description']}
+
+            <h6>Show Category </h6>
+            <p>${content['show_category']}
 
             <hr />
 

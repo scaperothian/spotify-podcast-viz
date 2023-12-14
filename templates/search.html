@@ -217,7 +217,8 @@
                     "show_category": item["category"],
                     "total_show_episodes": item["total_show_episodes"],
                     "topics": item["topics"],
-                    "topics_count_show_chart": item["topics_count_show_chart"]
+                    "topics_count_show_chart": item["topics_count_show_chart"],
+                    "episode_duration_by_show": item["episode_duration_by_show"]
                 })
             }
 
@@ -263,14 +264,20 @@
             <h6>Episode Duration:</h6>
             <p>${content['duration'].toFixed(1)} minutes</p>
             
-            <h6>Episode topic(s)</h6>
+            <h6>Topics within ${content['show_name']}</h6>
             <p>${content['topics'].join(', ').replace(/_/g, ' ')}</p>
 
             <hr />
-
-            <h6>show topics</h6>
-            <div id=${content['episode_filename_prefix']}></div>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Chart of Topics across all Episodes of ${content['show_name']}</h6>
+                    <div id=${content['episode_filename_prefix']}Topics></div>
+                </div>
+                <div class="col-md-6">
+                    <h6>Show duration (in minutes) of each Sucessive Episode</h6>
+                    <div id=${content['episode_filename_prefix']}Duration></div>
+                </div>
+            </div>
 
         </div>
     `;
@@ -279,10 +286,15 @@
 
         document.getElementById(modalContentId).innerHTML = displayContent;
         var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
-        vegaEmbed("#" + content['episode_filename_prefix'], JSON.parse(content['topics_count_show_chart'])).then(function (result) {
+        vegaEmbed("#" + content['episode_filename_prefix']+"Topics", JSON.parse(content['topics_count_show_chart'])).then(function (result) {
             console.log(result)
         }).catch(console.error);
 
+        document.getElementById(modalContentId).innerHTML = displayContent;
+        var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
+        vegaEmbed("#" + content['episode_filename_prefix']+"Duration", JSON.parse(content['episode_duration_by_show'])).then(function (result) {
+            console.log(result)
+        }).catch(console.error);
 
         $(modalId).modal('show');
     }

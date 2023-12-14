@@ -7,18 +7,18 @@
     <div class="row">
         <div class="col-md-3">
             <h3>Filters</h5>
-            <!-- Publisher Filter -->
-            <div id="publisher-filter">
-                <h5>Publisher</h5>
-                <!-- Checkboxes for publishers will be populated dynamically -->
-            </div>
-            <br>
-            <br>
-            <!-- Show Filter -->
-            <div id="show-filter">
-                <h5>Show</h5>
-                <!-- Checkboxes for shows will be populated dynamically -->
-            </div>
+                <!-- Publisher Filter -->
+                <div id="publisher-filter">
+                    <h5>Publisher</h5>
+                    <!-- Checkboxes for publishers will be populated dynamically -->
+                </div>
+                <br>
+                <br>
+                <!-- Show Filter -->
+                <div id="show-filter">
+                    <h5>Show</h5>
+                    <!-- Checkboxes for shows will be populated dynamically -->
+                </div>
         </div>
 
         <div class="col-md-6">
@@ -27,7 +27,8 @@
                 <div class="col">
                     <form class="form-inline" onsubmit="performSearch(true); return false;">
                         <div class="input-group w-100">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-input">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                                id="search-input">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </div>
@@ -86,7 +87,8 @@
 </div>
 
 <!-- Modals for Insights -->
-<div class="modal fade" id="insightsModal" tabindex="-1" role="dialog" aria-labelledby="insightsModalLabel" aria-hidden="true">
+<div class="modal fade" id="insightsModal" tabindex="-1" role="dialog" aria-labelledby="insightsModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document"> <!-- Added 'modal-lg' class for larger width -->
         <div class="modal-content">
             <div class="modal-header">
@@ -124,19 +126,19 @@
         $('#loadingModal').modal('show');
         let showFilters = {}
         let publisherFilters = {}
-        if(forceUpdateFilter !== true){
+        if (forceUpdateFilter !== true) {
             showFilters = getSelectedFilters('show-filter')
             publisherFilters = getSelectedFilters('publisher-filter')
         }
 
         var updateFilter = false
 
-        if (Object.keys(showFilters).length == 0 && Object.keys(publisherFilters).length == 0){
+        if (Object.keys(showFilters).length == 0 && Object.keys(publisherFilters).length == 0) {
             // there are no values to filter from, need to update filters from the results
             var updateFilter = true
         }
 
-        if (forceUpdateFilter === true){
+        if (forceUpdateFilter === true) {
             updateFilter = true
         }
 
@@ -151,12 +153,12 @@
 
             body: JSON.stringify(
                 {
-                query_phrase: searchText,
-                filters:{
-                    show_filters: showFilters,
-                    publisher_filters: publisherFilters
-                }
-            })
+                    query_phrase: searchText,
+                    filters: {
+                        show_filters: showFilters,
+                        publisher_filters: publisherFilters
+                    }
+                })
         });
 
         if (!response.ok) {
@@ -172,7 +174,7 @@
 
         var average_duration = document.getElementById('average-duration')
         average_duration.innerHTML = data['average_duration'] + ' minutes'
-        
+
         var top_topics = document.getElementById('top-topics')
 
         // Initialize the newHTMLContent
@@ -180,14 +182,14 @@
         console.log(data['top_topics'])
         // Use a for loop to generate the new HTML content
         for (let i = 1; i <= data['top_topics'].length; i++) {
-            newHTMLContent += `<li>${data['top_topics'][i-1].replace(/_/g, ' ')}</li>`;
+            newHTMLContent += `<li>${data['top_topics'][i - 1].replace(/_/g, ' ')}</li>`;
         }
 
         top_topics.innerHTML = newHTMLContent
 
-        data['rows'].forEach(function(item) {
+        data['rows'].forEach(function (item) {
             // add html code here for episode
-            var episodeData = {"episode_description": "test description"}
+            var episodeData = { "episode_description": "test description" }
 
 
             // add html code here for show
@@ -207,7 +209,7 @@
             insightsButton.type = "button";
             insightsButton.className = "btn btn-primary"
             insightsButton.textContent = "view"
-            insightsButton.onclick = function() {
+            insightsButton.onclick = function () {
                 showInsights({
                     "episode_name": item["episode_name"],
                     "episode_description": item["episode_description"],
@@ -226,7 +228,7 @@
         });
         // if there are no filters, then create filters
 
-        if(updateFilter){
+        if (updateFilter) {
             updateFilters(data['rows'])
         }
 
@@ -281,21 +283,24 @@
 
         </div>
     `;
-        
 
 
-        document.getElementById(modalContentId).innerHTML = displayContent;
-        var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
-        vegaEmbed("#" + content['episode_filename_prefix']+"Topics", JSON.parse(content['topics_count_show_chart'])).then(function (result) {
-            console.log(result)
-        }).catch(console.error);
 
         document.getElementById(modalContentId).innerHTML = displayContent;
         var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
-        vegaEmbed("#" + content['episode_filename_prefix']+"Duration", JSON.parse(content['episode_duration_by_show'])).then(function (result) {
+        vegaEmbed("#" + content['episode_filename_prefix'] + "Topics", JSON.parse(content['topics_count_show_chart'])).then(function (result) {
             console.log(result)
         }).catch(console.error);
 
+        if (content['episode_duration_by_show'].length == 0) {
+            console.log('This shouldnt be plotted')
+        }
+        else {
+            var chart = JSON.parse("{\"config\": {\"view\": {\"continuousWidth\": 300, \"continuousHeight\": 300}}, \"data\": {\"name\": \"data-46b033e7d8b33d31c41164ffb7c9db67\"}, \"mark\": {\"type\": \"bar\"}, \"encoding\": {\"x\": {\"field\": \"Key\", \"title\": \"Key\", \"type\": \"nominal\"}, \"y\": {\"field\": \"Value\", \"title\": \"Value\", \"type\": \"quantitative\"}}, \"title\": \"Show Topics Count\", \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.15.1.json\", \"datasets\": {\"data-46b033e7d8b33d31c41164ffb7c9db67\": [{\"Key\": \"news_&_social_concern\", \"Value\": 1}, {\"Key\": \"sports\", \"Value\": 1}]}}")
+            vegaEmbed("#" + content['episode_filename_prefix'] + "Duration", JSON.parse(content['episode_duration_by_show'])).then(function (result) {
+                console.log(result)
+            }).catch(console.error);
+        }
         $(modalId).modal('show');
     }
 
@@ -321,11 +326,11 @@
         // get unique shows
         var uniqueShows = [... new Set(data.map(item => item.show_name))].sort()
 
-        uniquePublishers.forEach(function(item){
+        uniquePublishers.forEach(function (item) {
             addCheckbox('publisher-filter', item, 'publisher-checkbox', item)
         });
-        
-        uniqueShows.forEach(function(item){
+
+        uniqueShows.forEach(function (item) {
             addCheckbox('show-filter', item, 'show-checkbox', item)
         });
 
@@ -352,7 +357,7 @@
         container.appendChild(document.createElement('br'));
     }
 
-    function getSelectedFilters(elementId){
+    function getSelectedFilters(elementId) {
         // Get a reference to the div containing the checkboxes
         var showFilterDiv = document.getElementById(elementId);
         console.log(elementId)
@@ -365,7 +370,7 @@
         var checkboxStatus = {};
 
         // Loop through each checkbox and populate the object
-        checkboxes.forEach(function(checkbox) {
+        checkboxes.forEach(function (checkbox) {
             var checkboxLabel = checkbox.nextElementSibling.textContent.trim();
             var isChecked = checkbox.checked;
             checkboxStatus[checkboxLabel] = isChecked;
